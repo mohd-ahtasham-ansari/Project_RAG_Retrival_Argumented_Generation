@@ -8,3 +8,34 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Secrets
+.env
+.env.*
+
+# Data and Documents
+data/
+datasets/
+docs/
+*.pdf
+*.csv
+*.jsonl
+
+# Vector Databases and Indexes
+chroma_db/
+vectorstore/
+*.faiss
+*.pkl
+lancedb/
+qdrant_storage/
+
+# Models and Weights
+models/
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
