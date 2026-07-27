@@ -1,6 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning, module="langchain_community")
-
 import os
 from dotenv import load_dotenv,find_dotenv
 from langchain_mistralai import ChatMistralAI
@@ -9,6 +6,8 @@ from langchain_core.prompts import ChatPromptTemplate
 
 load_dotenv(find_dotenv())
 
+model = ChatMistralAI(model="mistral-small-2506")
+
 docs = TextLoader("Document loaders/notes.txt").load()
 
 template = ChatPromptTemplate(
@@ -16,9 +15,7 @@ template = ChatPromptTemplate(
     ("human","{docs}")]
 )
 
-model = ChatMistralAI(model="mistral-small-2506")
-
-prompt =template.format_messages(data=docs[0].page_content)
+prompt =template.format_messages(docs=docs[0].page_content)
 
 result = model.invoke(prompt)
 
