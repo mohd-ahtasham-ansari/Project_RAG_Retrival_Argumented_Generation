@@ -13,7 +13,7 @@ docs = TextLoader("Document loaders/notes.txt").load()
 
 template = ChatPromptTemplate(
     [("system"," You are an AI that summarizes the text"),
-    ("human",{docs})]
+    ("human","{docs}")]
 )
 
 model = ChatMistralAI(model="mistral-small-2506")
