@@ -3,7 +3,7 @@ from langchain_text_splitters import CharacterTextSplitter
 
 splitter = CharacterTextSplitter(
     chunk_size= 10,
-    #separator="",
+    separator="",
     chunk_overlap=2
 )
 
@@ -16,4 +16,7 @@ chunks = splitter.split_documents(docs)
 
 #print(docs[0].page_content)
 print(len(chunks))
-print(chunks[50].page_content)
+
+for i in chunks:
+    print(i.page_content)
+    print()
