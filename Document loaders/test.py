@@ -16,4 +16,4 @@ chunks = splitter.split_documents(docs)
 
 #print(docs[0].page_content)
 print(len(chunks))
-print(chunks[0].page_content)
+print(chunks[50].page_content)
