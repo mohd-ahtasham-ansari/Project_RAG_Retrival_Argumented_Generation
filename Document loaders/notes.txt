@@ -1,0 +1,210 @@
+Retrieval-Augmented Generation (RAG)
+Introduction
+
+Retrieval-Augmented Generation (RAG) is an AI architecture that combines the power of information retrieval with large language models (LLMs). Instead of relying only on the knowledge stored inside the model's parameters, a RAG system retrieves relevant information from external sources and provides it as context to the language model before generating a response.
+
+This approach enables language models to answer questions about private documents, recent events, company knowledge bases, research papers, and other information that was unavailable during the model's training.
+
+Why RAG?
+
+Large Language Models have several limitations:
+
+Knowledge cutoff date
+Hallucinations (making up facts)
+No access to private documents
+Limited context memory
+
+RAG solves these issues by retrieving relevant information from external documents before generating an answer.
+
+Components of a RAG System
+
+A complete RAG pipeline generally consists of the following components:
+
+1. Document Loader
+
+The document loader reads data from different sources.
+
+Supported document types include:
+
+PDF
+Word (.docx)
+Text (.txt)
+Markdown (.md)
+HTML
+CSV
+JSON
+Web Pages
+
+Popular LangChain document loaders include:
+
+PyPDFLoader
+TextLoader
+CSVLoader
+UnstructuredWordDocumentLoader
+WebBaseLoader
+2. Text Splitter
+
+Large documents cannot be embedded directly because embedding models have token limits.
+
+Text splitters divide documents into smaller chunks.
+
+Example:
+
+Original document:
+
+"The capital of France is Paris. Paris is famous for the Eiffel Tower."
+
+After splitting:
+
+Chunk 1:
+"The capital of France is Paris."
+
+Chunk 2:
+"Paris is famous for the Eiffel Tower."
+
+Common splitters:
+
+RecursiveCharacterTextSplitter
+CharacterTextSplitter
+TokenTextSplitter
+MarkdownTextSplitter
+3. Embedding Model
+
+Embeddings convert text into numerical vectors.
+
+Example:
+
+"The cat is sleeping."
+
+↓
+
+[0.24, -0.67, 0.91, ...]
+
+Similar sentences produce similar vectors.
+
+Popular embedding models include:
+
+OpenAI text-embedding-3-small
+OpenAI text-embedding-3-large
+HuggingFace Embeddings
+Sentence Transformers
+BAAI bge-large-en
+4. Vector Database
+
+Embeddings are stored inside a vector database.
+
+Its job is to quickly find vectors that are most similar to a user's query.
+
+Popular vector databases:
+
+FAISS
+ChromaDB
+Pinecone
+Weaviate
+Milvus
+Qdrant
+5. Retriever
+
+The retriever searches the vector database and returns the most relevant document chunks.
+
+Instead of sending an entire book to the LLM, only the top relevant chunks are retrieved.
+
+Example query:
+
+"What is the capital of France?"
+
+Retrieved chunk:
+
+"The capital of France is Paris."
+
+6. Large Language Model (LLM)
+
+The retrieved chunks are combined with the user's question and passed to the LLM.
+
+Prompt example:
+
+Context:
+"The capital of France is Paris."
+
+Question:
+"What is the capital of France?"
+
+Answer:
+"Paris is the capital of France."
+
+RAG Workflow
+
+The overall RAG workflow is:
+
+Load documents
+Split documents into chunks
+Generate embeddings
+Store embeddings in a vector database
+User asks a question
+Embed the question
+Search similar vectors
+Retrieve relevant chunks
+Send chunks + question to the LLM
+Generate the final answer
+Advantages of RAG
+Reduces hallucinations
+Uses up-to-date information
+Supports private company data
+Does not require retraining the LLM
+Scales to millions of documents
+Easy to update by adding new documents
+Limitations of RAG
+Retrieval quality affects answer quality
+Poor chunking can reduce accuracy
+Embedding models may miss semantic relationships
+Large vector databases require more storage
+Retrieval can increase response latency
+Popular RAG Frameworks
+
+Some commonly used frameworks include:
+
+LangChain
+LlamaIndex
+Haystack
+DSPy
+AutoGen
+CrewAI
+Common Applications
+
+RAG is widely used in:
+
+Chat with PDFs
+Customer support chatbots
+Enterprise search
+Medical assistants
+Legal document analysis
+Research assistants
+Financial report analysis
+University knowledge systems
+Example Question
+
+Question:
+
+"What are the benefits of Retrieval-Augmented Generation?"
+
+Retrieved Context:
+
+"RAG reduces hallucinations, enables access to external knowledge, and provides more accurate responses."
+
+Generated Answer:
+
+"Retrieval-Augmented Generation improves answer quality by retrieving relevant information from external sources. It reduces hallucinations, supports private knowledge bases, and allows language models to use up-to-date information."
+
+Key Terms
+Term	Description
+Document Loader	Loads documents from files or websites
+Chunk	A small section of a document
+Embedding	Numerical vector representation of text
+Vector Database	Stores embeddings for similarity search
+Retriever	Finds relevant document chunks
+LLM	Generates answers using retrieved context
+Prompt	Instructions given to the language model
+Context	Retrieved information provided to the LLM
+Summary
+
+Retrieval-Augmented Generation combines document retrieval with language generation. Instead of relying only on the language model's internal knowledge, RAG retrieves relevant information from external documents and uses that context to generate accurate, up-to-date, and reliable responses. A standard RAG pipeline includes a document loader, text splitter, embedding model, vector database, retriever, and large language model.

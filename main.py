@@ -1,6 +1,14 @@
-def main():
-    print("Hello from project-rag-retrival-argumented-generation!")
-    
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="langchain_community")
 
-if __name__ == "__main__":
-    main()
+import os
+from dotenv import load_dotenv,find_dotenv
+from langchain_mistralai import ChatMistralAI
+from langchain_community import TextLoader
+
+load_dotenv(find_dotenv())
+model = ChatMistralAI(model="mistral-small-2506")
+
+result = model.invoke("hello")
+
+print(result.content)
