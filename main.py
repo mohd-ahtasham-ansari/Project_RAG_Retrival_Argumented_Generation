@@ -9,15 +9,6 @@ load_dotenv(find_dotenv())
 
 model = ChatMistralAI(model="mistral-small-2506")
 
-data = PyPDFLoader("Document loaders/book.pdf")
-docs = data.load()
-
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=200
-)
-
-chunks = splitter.split_documents(docs)
 
 
 template = ChatPromptTemplate(
@@ -25,8 +16,4 @@ template = ChatPromptTemplate(
     ("human","{docs}")]
 )
 
-prompt =template.format_messages(docs=docs[15].page_content)
 
-result = model.invoke(prompt)
-
-print(result.content)
