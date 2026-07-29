@@ -7,8 +7,9 @@ This project demonstrates a simple document processing pipeline using LangChain,
 The application is designed to:
 1. Load documents (PDF files) using `PyPDFLoader`.
 2. Split the document text into manageable chunks using `RecursiveCharacterTextSplitter`.
-3. Use LangChain along with a Mistral AI model (`ChatMistralAI`) to process the text.
-4. Summarize or extract information from the parsed documents based on a provided prompt template.
+3. Generate embeddings using `MistralAIEmbeddings` and store/retrieve them via `Chroma` vector store.
+4. Use LangChain along with a Mistral AI model (`ChatMistralAI`) to process the text.
+5. Summarize or extract information from the parsed documents based on a provided prompt template.
 
 ## Requirements
 
@@ -38,4 +39,9 @@ Ensure you have a PDF file available (e.g., `Document loaders/book.pdf`). Then r
 
 ```bash
 python main.py
+```
+
+To test the vector store functionality (embedding, storing, and retrieving):
+```bash
+python "vector store/db.py"
 ```

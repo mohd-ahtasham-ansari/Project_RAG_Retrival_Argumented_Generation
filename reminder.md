@@ -8,6 +8,7 @@ The `langchain-community` package is currently deprecated and being sunset. It i
 ## Action Required
 - [ ] Monitor the official GitHub issue for migration guidance: [langchain-ai/langchain-community#674](https://github.com/langchain-ai/langchain-community/issues/674)
 - [ ] Migrate `langchain_community.document_loaders.TextLoader` and any other community components to their respective standalone integration packages as they become available or follow the recommended updated practices.
+- [ ] Migrate `langchain_community.vectorstores.Chroma` to the standalone `langchain_chroma` integration package.
 
 ## Context
 When running `Document loaders/test.py`, the following warning was observed:

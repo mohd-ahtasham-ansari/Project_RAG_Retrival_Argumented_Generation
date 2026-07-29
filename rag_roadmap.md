@@ -13,14 +13,14 @@ Before diving into RAG, it's essential to understand the core building blocks:
 The standard, baseline RAG pipeline consists of three main phases:
 
 ### A. Ingestion Pipeline (Data Prep)
-1. **Document Loaders:** Extracting text from PDFs, HTML, Word docs, Markdown, Databases.
-2. **Text Splitting / Chunking:** Breaking large documents into smaller, meaningful chunks (e.g., Character Splitter, Recursive Character Splitter, Semantic Splitter).
-3. **Embedding:** Converting chunks into vector representations.
-4. **Indexing:** Storing vectors and metadata in a Vector Database.
+- [x] **Document Loaders:** Extracting text from PDFs, HTML, Word docs, Markdown, Databases.
+- [x] **Text Splitting / Chunking:** Breaking large documents into smaller, meaningful chunks (e.g., Character Splitter, Recursive Character Splitter, Semantic Splitter).
+- [x] **Embedding:** Converting chunks into vector representations.
+- [x] **Indexing:** Storing vectors and metadata in a Vector Database.
 
 ### B. Retrieval Pipeline
-1. **Query Embedding:** Converting the user's query into the same vector space.
-2. **Similarity Search:** Finding the top-k most similar chunks in the Vector DB (Cosine Similarity, Euclidean Distance, Dot Product).
+- [x] **Query Embedding:** Converting the user's query into the same vector space.
+- [x] **Similarity Search:** Finding the top-k most similar chunks in the Vector DB (Cosine Similarity, Euclidean Distance, Dot Product).
 
 ### C. Generation Pipeline
 1. **Prompt Augmentation:** Combining the retrieved context chunks with the user's original query.

@@ -13,6 +13,18 @@ During `uv add -r requirements.txt`, the build failed for `llvmlite==0.36.0` wit
 **Resolution:**
 The conflicting package was removed/resolved, allowing `uv sync` and subsequent `uv add -r requirements.txt` to successfully install all other required packages (e.g., Langchain, FastAPI, PyTorch, Transformers).
 
+## 2026-07-27: Chroma Vector Store Initialization Errors
+
+**Error:**
+1. `NameError: name 'Document' is not defined`
+2. `TypeError: Chroma.from_documents() missing 1 required positional argument: 'documents'`
+
+**Root Cause:**
+Missing import for LangChain's core `Document` object, and incorrect positional argument passing for `documents` in `Chroma.from_documents()`.
+
+**Resolution:**
+Added `from langchain_core.documents import Document` and passed the `documents` argument as a keyword argument (`documents=docs`) in `vector store/db.py`.
+
 ---
 
 *Note: Add any future environment setup, runtime, or dependency errors below this line to keep a historical record.*
