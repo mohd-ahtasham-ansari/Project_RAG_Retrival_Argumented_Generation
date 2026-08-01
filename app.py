@@ -97,8 +97,23 @@ st.markdown(
     }
 
     .stApp {
-        background: var(--whitewash);
+        background: var(--whitewash) !important;
         color: var(--ink);
+    }
+
+    header[data-testid="stHeader"] {
+        background: var(--whitewash) !important;
+    }
+
+    [data-testid="stBottomBlockContainer"],
+    [data-testid="stBottom"] {
+        background: var(--whitewash) !important;
+    }
+
+    [data-testid="stChatInput"] textarea,
+    [data-testid="stChatInput"] textarea::placeholder {
+        color: var(--sea-deep) !important;
+        -webkit-text-fill-color: var(--sea-deep) !important;
     }
 
     /* Dome-arch header banner */
@@ -179,6 +194,10 @@ st.markdown(
         border-radius: 999px !important;
         background: var(--white) !important;
         box-shadow: 0 2px 8px rgba(14,90,115,0.10);
+    }
+
+    [data-testid="stChatInput"] > div {
+        background: var(--white) !important;
     }
 
     [data-testid="stChatInput"] textarea {
