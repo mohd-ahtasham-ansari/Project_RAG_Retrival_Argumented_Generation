@@ -87,93 +87,120 @@ st.markdown(
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital@0;1&display=swap');
 
     :root {
-        --marble: #F1ECE2;
-        --marble-dark: #E4DCC9;
-        --ink: #2E2A22;
-        --aegean: #1F4655;
-        --terracotta: #B5562F;
-        --gold: #A9812F;
+        --white: #FFFFFF;
+        --whitewash: #F7F9FA;
+        --sea: #0E5A73;
+        --sea-deep: #0A3D52;
+        --sky: #4FA8C9;
+        --gold: #C6A15B;
+        --ink: #1C2B33;
     }
 
     .stApp {
-        background:
-            radial-gradient(circle at 15% 10%, rgba(169,129,47,0.08), transparent 40%),
-            radial-gradient(circle at 85% 90%, rgba(31,70,85,0.07), transparent 40%),
-            var(--marble);
+        background: var(--whitewash);
         color: var(--ink);
     }
 
-    /* Greek key meander divider under the title */
-    .meander {
-        height: 22px;
-        margin: 0 0 1.6rem 0;
-        background-image: repeating-linear-gradient(
-            to right,
-            var(--aegean) 0px, var(--aegean) 4px,
-            transparent 4px, transparent 8px
-        );
-        -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='22'><path d='M0 0h8v8h8V0h8v16h8V8h8v-8h8v22h-48z' fill='black'/></svg>");
-        mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='22'><path d='M0 0h8v8h8V0h8v16h8V8h8v-8h8v22h-48z' fill='black'/></svg>");
-        -webkit-mask-repeat: repeat-x;
-        mask-repeat: repeat-x;
-        -webkit-mask-size: 64px 22px;
-        mask-size: 64px 22px;
-        opacity: 0.55;
+    /* Dome-arch header banner */
+    .hero {
+        position: relative;
+        margin: -1rem -1rem 2.2rem -1rem;
+        padding: 3.2rem 1rem 4rem 1rem;
+        text-align: center;
+        background: linear-gradient(180deg, var(--sea-deep) 0%, var(--sea) 55%, var(--sky) 100%);
+        border-radius: 0 0 50% 50% / 0 0 60px 60px;
+        box-shadow: 0 6px 24px rgba(10,61,82,0.18);
     }
 
-    h1 {
+    .hero h1 {
         font-family: 'Cormorant Garamond', serif !important;
         font-weight: 700 !important;
-        letter-spacing: 0.06em;
-        color: var(--aegean) !important;
-        text-align: center;
-        font-size: 3rem !important;
-        margin-bottom: 0.2rem !important;
+        color: var(--white) !important;
+        font-size: 3.2rem !important;
+        letter-spacing: 0.04em;
+        margin: 0 !important;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
-    .subtitle {
-        text-align: center;
+    .hero .eyebrow {
         font-family: 'EB Garamond', serif;
         font-style: italic;
-        color: var(--terracotta);
-        margin-bottom: 0.6rem;
-        letter-spacing: 0.03em;
+        color: var(--gold);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .hero .subtitle {
+        font-family: 'EB Garamond', serif;
+        color: rgba(255,255,255,0.88);
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+
+    .hero .goldline {
+        width: 90px;
+        height: 2px;
+        background: var(--gold);
+        margin: 1rem auto 0 auto;
+        opacity: 0.9;
     }
 
     /* Chat bubbles */
     [data-testid="stChatMessage"] {
-        background: #FBF8F1;
-        border: 1px solid var(--marble-dark);
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(46,42,34,0.08);
-        padding: 0.4rem 0.6rem;
+        background: var(--white);
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(14,90,115,0.08);
+        padding: 0.6rem 0.9rem;
+        margin-bottom: 0.6rem;
     }
 
     [data-testid="stChatMessageContent"] p {
         font-family: 'EB Garamond', serif;
-        font-size: 1.08rem;
-        line-height: 1.55;
+        font-size: 1.1rem;
+        line-height: 1.6;
         color: var(--ink);
     }
 
+    /* Distinguish user vs assistant bubbles */
+    [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+        background: linear-gradient(135deg, #EAF5FA, #DCEEF5);
+        border-left: 3px solid var(--sky);
+    }
+    [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+        border-left: 3px solid var(--gold);
+    }
+
     /* Chat input */
+    [data-testid="stChatInput"] {
+        border: 1.5px solid var(--sky) !important;
+        border-radius: 999px !important;
+        background: var(--white) !important;
+        box-shadow: 0 2px 8px rgba(14,90,115,0.10);
+    }
+
     [data-testid="stChatInput"] textarea {
         font-family: 'EB Garamond', serif;
         font-size: 1.05rem;
-    }
-
-    [data-testid="stChatInput"] {
-        border: 1px solid var(--gold) !important;
-        border-radius: 4px !important;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown("<h1>Ἐπιστολαί &mdash; Letters from Seneca</h1>", unsafe_allow_html=True)
-st.markdown('<div class="meander"></div>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Ask, and receive the counsel of a Stoic.</p>', unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="hero">
+        <div class="eyebrow">Ἐπιστολαί</div>
+        <h1>Letters from Seneca</h1>
+        <div class="goldline"></div>
+        <div class="subtitle">Ask, and receive the counsel of a Stoic</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
