@@ -1,19 +1,28 @@
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 
 load_dotenv(find_dotenv())
 
 st.set_page_config(page_title="Seneca RAG", page_icon="🏛️")
 
-# ----------------------------
-# Prompt (same as main.py)
-# ----------------------------
+embedding_model = MistralAIEmbeddings()
+
+vectorstore = Chroma(
+    persist_directory="Chroma_db",
+    embedding_function=embedding_model,
+)
+
+retriever = vectorstore.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": 3, "fetch_k": 10, "lambda_mult": 0.5},
+)
+
+llm = ChatMistralAI(model="mistral-small-latest")
+
 prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -72,84 +81,29 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-
-@st.cache_resource
-def get_llm():
-    return ChatMistralAI(model="mistral-small-latest")
-
-
-@st.cache_resource
-def get_embedding_model():
-    return MistralAIEmbeddings()
-
-
-def build_database(pdf_path):
-    """Same steps as create_database.py"""
-    data = PyPDFLoader(pdf_path)
-    docs = data.load()
-
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    chunks = splitter.split_documents(docs)
-
-    embedding_model = MistralAIEmbeddings(model="mistral-embed")
-
-    vectorstore = Chroma.from_documents(
-        documents=chunks,
-        embedding=embedding_model,
-        persist_directory="Chroma_db",
-    )
-    return vectorstore
-
-
-def get_retriever(vectorstore):
-    return vectorstore.as_retriever(
-        search_type="mmr",
-        search_kwargs={"k": 3, "fetch_k": 10, "lambda_mult": 0.5},
-    )
-
-
-# ----------------------------
-# UI
-# ----------------------------
-st.title("🏛️ Seneca RAG")
-
-if "vectorstore" not in st.session_state:
-    st.session_state.vectorstore = None
+st.title("🏛️ Seneca")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-uploaded_pdf = st.file_uploader("Upload a PDF", type=["pdf"])
-
-if uploaded_pdf is not None and st.button("Create database"):
-    with open("uploaded_book.pdf", "wb") as f:
-        f.write(uploaded_pdf.getvalue())
-    with st.spinner("Building database..."):
-        st.session_state.vectorstore = build_database("uploaded_book.pdf")
-    st.success("Database created.")
 
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-query = st.chat_input("Ask a question")
+query = st.chat_input("You:")
 
 if query:
     st.session_state.messages.append({"role": "user", "content": query})
     with st.chat_message("user"):
         st.markdown(query)
 
-    if st.session_state.vectorstore is None:
-        st.warning("Please upload a PDF and create the database first.")
-    else:
-        retriever = get_retriever(st.session_state.vectorstore)
-        docs = retriever.invoke(query)
-        context = "\n\n".join([doc.page_content for doc in docs])
+    docs = retriever.invoke(query)
+    context = "\n\n".join([doc.page_content for doc in docs])
 
-        final_prompt = prompt.invoke({"context": context, "question": query})
-        response = get_llm().invoke(final_prompt)
+    final_prompt = prompt.invoke({"context": context, "question": query})
+    response = llm.invoke(final_prompt)
 
-        with st.chat_message("assistant"):
-            st.markdown(response.content)
+    with st.chat_message("assistant"):
+        st.markdown(response.content)
 
-        st.session_state.messages.append({"role": "assistant", "content": response.content})
+    st.session_state.messages.append({"role": "assistant", "content": response.content})
