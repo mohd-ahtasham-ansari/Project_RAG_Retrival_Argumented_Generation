@@ -81,7 +81,99 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-st.title("🏛️ Seneca")
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital@0;1&display=swap');
+
+    :root {
+        --marble: #F1ECE2;
+        --marble-dark: #E4DCC9;
+        --ink: #2E2A22;
+        --aegean: #1F4655;
+        --terracotta: #B5562F;
+        --gold: #A9812F;
+    }
+
+    .stApp {
+        background:
+            radial-gradient(circle at 15% 10%, rgba(169,129,47,0.08), transparent 40%),
+            radial-gradient(circle at 85% 90%, rgba(31,70,85,0.07), transparent 40%),
+            var(--marble);
+        color: var(--ink);
+    }
+
+    /* Greek key meander divider under the title */
+    .meander {
+        height: 22px;
+        margin: 0 0 1.6rem 0;
+        background-image: repeating-linear-gradient(
+            to right,
+            var(--aegean) 0px, var(--aegean) 4px,
+            transparent 4px, transparent 8px
+        );
+        -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='22'><path d='M0 0h8v8h8V0h8v16h8V8h8v-8h8v22h-48z' fill='black'/></svg>");
+        mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='22'><path d='M0 0h8v8h8V0h8v16h8V8h8v-8h8v22h-48z' fill='black'/></svg>");
+        -webkit-mask-repeat: repeat-x;
+        mask-repeat: repeat-x;
+        -webkit-mask-size: 64px 22px;
+        mask-size: 64px 22px;
+        opacity: 0.55;
+    }
+
+    h1 {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.06em;
+        color: var(--aegean) !important;
+        text-align: center;
+        font-size: 3rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        color: var(--terracotta);
+        margin-bottom: 0.6rem;
+        letter-spacing: 0.03em;
+    }
+
+    /* Chat bubbles */
+    [data-testid="stChatMessage"] {
+        background: #FBF8F1;
+        border: 1px solid var(--marble-dark);
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(46,42,34,0.08);
+        padding: 0.4rem 0.6rem;
+    }
+
+    [data-testid="stChatMessageContent"] p {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.08rem;
+        line-height: 1.55;
+        color: var(--ink);
+    }
+
+    /* Chat input */
+    [data-testid="stChatInput"] textarea {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.05rem;
+    }
+
+    [data-testid="stChatInput"] {
+        border: 1px solid var(--gold) !important;
+        border-radius: 4px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown("<h1>Ἐπιστολαί &mdash; Letters from Seneca</h1>", unsafe_allow_html=True)
+st.markdown('<div class="meander"></div>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Ask, and receive the counsel of a Stoic.</p>', unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
