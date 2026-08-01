@@ -9,6 +9,9 @@
 
 This project is a Retrieval-Augmented Generation (RAG) application that allows you to chat with Seneca, the Stoic philosopher. It uses LangChain, Mistral AI, and ChromaDB to process documents and answer questions based on the teachings of Seneca, maintaining a stoic, patient, and wise persona.
 
+<img width="1175" height="746" alt="image" src="https://github.com/user-attachments/assets/b90bde6a-d5fc-4558-b8f7-79a5d0c0485d" />
+
+
 ## Features
 
 - **Interactive UI**: A chat interface built with Streamlit (`app.py`).
